@@ -14,3 +14,7 @@ bureau.csv
 application_train.csv
 application_test.csv
 .ipynb_checkpoints
+data_train_T.csv
+data_test_T.csv
+feats.csv
+shap_explainer.joblib
