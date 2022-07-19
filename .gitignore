@@ -18,3 +18,5 @@ data_train_T.csv
 data_test_T.csv
 feats.csv
 shap_explainer.joblib
+df.gz
+app_test.csv
