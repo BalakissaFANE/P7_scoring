@@ -32,3 +32,7 @@ data.gz
 Pelec_03_Dash_FANE_Balakissa.ipynb
 df.gz
 app_test.csv
+__pycache__
+.idea
+custumers.csv
+dash.py
