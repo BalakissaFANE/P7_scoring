@@ -23,7 +23,7 @@ def main():
     model = joblib.load("pipeline_housing.joblib")
     explainer = joblib.load("shap_explainer.joblib")
 
-    feats = requests.get("http://127.0.0.1:8083/feats/").json()
+    feats = requests.get("http://127.0.0.1:80/feats/").json()
     # features = np.genfromtxt('features_import.csv', dtype='unicode', delimiter=',')
 
     #######################################
@@ -48,7 +48,7 @@ def main():
     chk_id = st.sidebar.selectbox("Client ID", id_client)
 
     # Loading general info
-    infos = requests.get("http://127.0.0.1:8083/infos")
+    infos = requests.get("http://127.0.0.1:80/infos")
     nb_credits = infos.json()["nb_credits"]
     rev_moy = infos.json()["revenu_moy"]
     credits_moy = infos.json()["credit_moyen"]
@@ -107,7 +107,7 @@ def main():
     if st.checkbox("Show customer information ?"):
 
         # infos_client = identite_client(data, chk_id)
-        infos_client = requests.get("http://127.0.0.1:8083/identite_client", params={"client_id": chk_id})
+        infos_client = requests.get("http://127.0.0.1:80/identite_client", params={"client_id": chk_id})
         infos_client = infos_client.json()
         st.write("**Gender : **", infos_client["gender"])
         #print('infos_client')
@@ -119,7 +119,7 @@ def main():
 
         # Age distribution plot
         # data_age = load_age_population(data)
-        data_age = requests.get("http://127.0.0.1:8083/age_population").json()
+        data_age = requests.get("http://127.0.0.1:80/age_population").json()
         fig, ax = plt.subplots(figsize=(10, 5))
         sns.histplot(data_age, edgecolor='k', color="goldenrod", bins=20)
         ax.axvline(int(infos_client["age"] / -365), color="green", linestyle='--')
@@ -134,7 +134,7 @@ def main():
 
         # Income distribution plot
         # data_income = load_income_population(data)
-        data_income = requests.get("http://127.0.0.1:8083/income_population").json()
+        data_income = requests.get("http://127.0.0.1:80/income_population").json()
         fig, ax = plt.subplots(figsize=(10, 5))
         sns.histplot(data_income, edgecolor='k', color="goldenrod", bins=10)
         ax.axvline(int(infos_client["income_total"]), color="green", linestyle='--')
@@ -175,7 +175,7 @@ def main():
      #   st.markdown("<i>…</i>", unsafe_allow_html=True)
 
     if st.checkbox("Show customer importances information ?"):
-        shap_vals = requests.get("http://127.0.0.1:8083/features_importances", params={"client_id": chk_id}).json()
+        shap_vals = requests.get("http://127.0.0.1:80/features_importances", params={"client_id": chk_id}).json()
         df_feats = pd.DataFrame(shap_vals, columns=["importances"])
         df_feats["feats"] = feats
         df_feats["abs"] = abs(df_feats["importances"])
@@ -199,12 +199,12 @@ def main():
     # Customer solvability display
     st.header("**Customer file analysis**")
     # prediction = load_prediction(sample, chk_id, clf)
-    prediction = requests.get("http://127.0.0.1:8083/predictions", params={"client_id": chk_id}).json()["prediction"]
+    prediction = requests.get("http://127.0.0.1:80/predictions", params={"client_id": chk_id}).json()["prediction"]
     prediction = round(float(prediction) * 100, 2)
     st.write("**Success probability : **{:.0f} %".format(prediction))
 
     # Compute decision according to the best threshold
-    score_min = requests.get("http://127.0.0.1:8083/score_min/").json()["score_min"] * 100
+    score_min = requests.get("http://127.0.0.1:80/score_min/").json()["score_min"] * 100
     if prediction >= score_min:
         decision = "<font color='green'>**LOAN GRANTED**</font>"
     else:
