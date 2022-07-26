@@ -30,6 +30,9 @@ Dashboard_old.py
 #shap_explainer.joblib
 data.gz
 Pelec_03_Dash_FANE_Balakissa.ipynb
+setup.sh
+
+
 #df.gz
 app_test.csv
 dash.py
