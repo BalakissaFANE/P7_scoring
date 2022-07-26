@@ -1,1 +1,1 @@
-web: python app:API && sh setup.sh && streamlit run Dashboard.py
+web: python API.py && sh setup.sh && streamlit run Dashboard.py
