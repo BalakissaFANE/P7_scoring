@@ -22,6 +22,17 @@ custumers.csv
 data.gz
 "~$FANE_Balakissa_3_note_m\303\251thodologique_072022.pptx"
 .idea/workspace.xml
-        FANE_Balakissa_4_presentation_072022.pdf
-        customers.csv
-
+FANE_Balakissa_4_presentation_072022.pdf
+customers.csv
+data_test_T.csv
+data_train_T.csv
+features.csv
+test.gz
+data_test_T.csv
+data_train_T.csv
+data.csv
+feats.csv
+features_import.csv
+pipeline_housing.joblib
+shap_explainer.joblib
+custumers.csv
